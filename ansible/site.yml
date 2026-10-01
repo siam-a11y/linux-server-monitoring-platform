@@ -1,0 +1,44 @@
+---
+- name: DevOps Server Configuration & Health Automation
+  hosts: devops_servers
+  become: yes
+  tasks:
+    - name: Ensure required packages are installed
+      apt:
+        name:
+          - curl
+          - git
+          - ca-certificates
+          - ufw
+          - htop
+        state: present
+        update_cache: yes
+
+    - name: Ensure essential UFW firewall ports are allowed
+      ufw:
+        rule: allow
+        port: "{{ item }}"
+        proto: tcp
+      loop:
+        - '22'
+        - '80'
+        - '443'
+        - '3000'
+        - '9090'
+        - '9093'
+        - '9100'
+
+    - name: Verify Docker service is active and enabled
+      systemd:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Execute automated health check script
+      command: /home/mareful-alam-siam/devops-lab/scripts/health-check.sh
+      register: health_output
+      changed_when: false
+
+    - name: Print health check verification output
+      debug:
+        var: health_output.stdout_lines
