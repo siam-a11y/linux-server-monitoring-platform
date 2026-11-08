@@ -103,3 +103,21 @@ Added to crontab to run daily at midnight:
 ```bash
 git remote set-url origin https://github.com/siam-a11y/linux-server-monitoring-platform.git
 ```
+
+## System Verification & Dashboard Previews
+
+### Grafana Host Metrics
+Real-time node telemetry highlighting CPU, RAM, Network I/O, and Disk consumption:
+![Grafana Dashboard](grafana-dashboard.png)
+
+### Prometheus Scrape Targets
+Verification of active scraping endpoints and target states:
+![Prometheus Targets](prometheus-targets.png)
+
+### Active Alert Rules
+Loaded alert conditions for threshold monitoring and service failures:
+![Prometheus Alerts](prometheus-alerts.png)
+
+### Container Architecture & Port Mappings
+Running Docker containers along with published service ports:
+![Docker Services](docker-services.png)
